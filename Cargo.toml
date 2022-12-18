@@ -1,8 +1,11 @@
 [package]
 name = "latexmailmerge"
+description = "A small command line tool which converts a CSV file into LaTeX commands for mail merges."
+authors = ["Jan Martin Reckel"]
+readme = "README.md"
+license = "GPL-3.0"
 version = "0.1.0"
 edition = "2021"
-author = "Jan Martin Reckel"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,3 +18,4 @@ strip = true        # Strip symbols from binary*
 
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
+unicode-segmentation = "1.10.0"

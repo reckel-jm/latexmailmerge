@@ -1,5 +1,6 @@
 use std::fs;
 use clap::Parser;
+use unicode_segmentation::UnicodeSegmentation;
 
 fn main() {    
     #[derive(Parser, Debug)]
@@ -34,9 +35,22 @@ fn load_csv_file(filename: &String, delim: String, startline: u8, latex_command:
         let mut output_line: String = latex_command.clone();
         for argument in datafields {
             output_line.push_str("{");
-            output_line.push_str(argument.trim());
+            output_line.push_str(&trim_string(argument.to_string()));
             output_line.push_str("}");
         }
         println!("{}", output_line);
     }
+}
+
+fn trim_string(s: String) -> String {
+    let mut trimmed_string = s.trim().clone().to_string();
+    let binding = trimmed_string.clone();
+    let first_character = binding.graphemes(true).next();
+    let trimmed_string_length = s.len();
+    let binding = trimmed_string.clone();
+    let last_character = binding.graphemes(true).last();
+    if first_character == Some("\"") && last_character == Some("\"") {
+        trimmed_string = trimmed_string[1..trimmed_string_length-2].to_string();
+    }
+    trimmed_string
 }
