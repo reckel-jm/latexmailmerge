@@ -43,7 +43,7 @@ This would create *three letters* with the adapted content. But where does the d
 A basic usage would look like that:
 
 ```
-latexmailmerge -f1 -d "," data.csv > data.tex
+latexmailmerge -f1 -d "," --latex-command="\mailmerge" data.csv > data.tex
 ```
 
 The argument `-f` specifies the *first line* (for skipping headlines) and is zero based. The argument `-d` specifies the delimater which is most likely "," or ";". `data.csv` is the source file and `data.tex` is the file where the output will be saved.
