@@ -8,7 +8,7 @@ LaTeX is a phantastic tool for composing and writing mail merges. The LaTeX docu
 
 For writing a mail merge, it has been a common way to wrap the letter class into a created command and then call this command multiple times. In composition with the `ifthen`-package, a minimal example looks like this:
 
-```
+```tex
 \documentclass[paper=a4, fontsize=12pt]{scrlttr2}
 % other packages
 \usepackage{ifthen}
@@ -30,7 +30,7 @@ For writing a mail merge, it has been a common way to wrap the letter class into
 
 Note the last line of this minimal working example: We included an other TeX-file called `data.tex` which is supposed to call the created `\mailmerge`-command. An example content would be:
 
-```
+```tex
 \mailmerge{Newton}{John}
 \mailmerge{James}{Mary}
 \mailmerge{Smith}{Anthony}
@@ -42,7 +42,7 @@ This would create *three letters* with the adapted content. But where does the d
 
 A basic usage would look like that:
 
-```
+```bash
 latexmailmerge -f1 -d "," --latex-command="\mailmerge" data.csv > data.tex
 ```
 
@@ -52,9 +52,21 @@ You can see a complete list of possible options via `latexmailmerge --help`.
 
 ## Installation
 
-Clone the repository and compile the project using Cargo:
+The program is written in Rust. Clone the repository and compile the project using Cargo:
 
-```
+```bash
 git clone https://github.com/reckel-jm/latexmailmerge.git
 cargo build --release
+```
+
+## Automaticate the process with a makefile
+
+If you manage a LaTeX project, it can become inconvinient to rerun the helper everytime when the CSV file has changed. You can let make do this for you. Create a `Makefile` with for example the following content:
+
+```make
+letter.pdf: letter.tex data.tex
+    latexmk -pdf letter.tex
+
+data.tex: data.csv
+	latexmailmerge -d ";" -f 1 -c "\mailmerge" data.csv > data.tex 
 ```
