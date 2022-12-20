@@ -1,2 +1,6 @@
 /target
 *.csv
+*.pkg.tar.zst
+/pkg
+latexmailmerge-linux_x64
+latexmailmerge

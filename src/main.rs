@@ -19,6 +19,6 @@ fn main() {
     }
     let options = Args::parse();
 
-    let latex_string: String = lib::load_csv_file(&options.filepath, options.delim, options.firstline, options.latex_command);
+    let latex_string: String = lib::load_csv_file(&options.filepath, &options.delim, &options.firstline, &options.latex_command);
     println!("{}", latex_string);
 }
