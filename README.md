@@ -70,3 +70,18 @@ letter.pdf: letter.tex data.tex
 data.tex: data.csv
 	latexmailmerge -d ";" -f 1 -c "\mailmerge" data.csv > data.tex 
 ```
+
+## Use the dynamic library
+
+At compilation, Rust creates both an executable file which is the program as well as a dynamic library from the `lib.rs` file. This file has an exported function `pub extern "C" fn convert_csv_file(c_str_filename: *const c_char, c_str_delim: *const c_char, c_uint_startline: c_uint, c_str_latex_command: *const c_char) -> *mut c_char` which can be called from other programing languages. For example, in Python you could call the function via:
+
+```python
+def convert2csv(filename, delim, firstline, latexcommand):
+	import ctypes
+	rust_lib = ctypes.CDLL("./liblatexmailmerge.so") # or any other file path depending on OS
+	rust_lib.convert_csv_file.restype = ctypes.c_char_p
+	return(rust_lib.convert_csv_file(filename.encode('utf-8'),
+		delim.encode('utf-8'),
+		ctypes.c_uint(firstline),
+		latexcommand.encode('utf-8')).decode("utf-8"))
+```
