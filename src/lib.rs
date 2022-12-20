@@ -2,7 +2,6 @@ use std::ffi::c_uint;
 use std::fs;
 use std::ffi::{CString,CStr};
 use std::os::raw::c_char;
-use std::str;
 use unicode_segmentation::UnicodeSegmentation;
 
 /// Exports a Convertion function for DLL/so libraries
