@@ -1,0 +1,18 @@
+name: latexmailmerge
+version: git
+summary: Command line tool for converting CSV to LaTeX commands
+description: |
+  A helper for converting CSV files into a LaTeX command format, so that the data can be used for mail merge letters.
+
+base: core18
+confinement: devmode
+
+
+parts:
+  latexmailmerge:
+    plugin: rust
+    source: .
+
+apps:
+  latexmailmerge:
+    command: bin/latexmailmerge
