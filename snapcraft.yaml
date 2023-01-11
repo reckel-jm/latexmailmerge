@@ -5,7 +5,7 @@ description: |
   A helper for converting CSV files into a LaTeX command format, so that the data can be used for mail merge letters.
 
 base: core18
-confinement: devmode
+confinement: strict
 
 
 parts:
